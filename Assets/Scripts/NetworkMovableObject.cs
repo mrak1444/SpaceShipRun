@@ -45,7 +45,7 @@ namespace Network
         }
         private void Update()
         {
-            OnUpdateAction?.Invoke();
+            _onUpdateAction?.Invoke();
         }
         private void LateUpdate()
         {

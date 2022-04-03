@@ -1,5 +1,6 @@
 using Data;
 using UnityEngine;
+
 namespace Main
 {
     public class SettingsContainer : Singleton<SettingsContainer>
