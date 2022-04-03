@@ -16,7 +16,8 @@ namespace Characters
         private float _shipSpeed;
         private Rigidbody _rigidbody;
 
-        [SyncVar] private string _playerName;
+        [SyncVar] 
+        private string _playerName;
 
         [SyncEvent]
         public event Action OnSomethingHappend;
