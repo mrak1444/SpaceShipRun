@@ -19,8 +19,8 @@ namespace Main
 
             var player = Instantiate(playerPrefab, spawnTransform.position, spawnTransform.rotation);
             player.GetComponent<ShipController>().PlayerName = _playerName.text;
-            NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
             _nameText.text = player.GetComponent<ShipController>().PlayerName;
+            NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
         }
 
         public override void OnStartHost()
@@ -30,6 +30,7 @@ namespace Main
 
         public override void OnStartServer()
         {
+            base.OnStartServer();
             _menu.SetActive(false);
         }
 
