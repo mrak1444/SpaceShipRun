@@ -30,6 +30,7 @@ partial class CameraRenderer
         DrawVisible();
         DrawUnsupportedShaders();
         DrawGizmos();
+        DrawUIOverlay();
         Submit();
     }
 
@@ -95,6 +96,7 @@ partial class CameraRenderer
 {
     partial void DrawUnsupportedShaders();
     partial void DrawGizmos();
+    partial void DrawUIOverlay();
 #if UNITY_EDITOR
     private static readonly ShaderTagId[] _legacyShaderTagIds =
     {
@@ -109,11 +111,11 @@ partial class CameraRenderer
     private static Material _errorMaterial = new Material(Shader.Find("Hidden/InternalErrorShader"));
     partial void DrawUnsupportedShaders()
     {
-        var drawingSettings = new DrawingSettings(_legacyShaderTagIds[0], new
-        SortingSettings(_camera))
+        var drawingSettings = new DrawingSettings(_legacyShaderTagIds[0], new SortingSettings(_camera))
         {
             overrideMaterial = _errorMaterial,
         };
+
         for (var i = 1; i < _legacyShaderTagIds.Length; i++)
         {
             drawingSettings.SetShaderPassName(i, _legacyShaderTagIds[i]);
@@ -131,6 +133,11 @@ partial class CameraRenderer
         }
         _context.DrawGizmos(_camera, GizmoSubset.PreImageEffects);
         _context.DrawGizmos(_camera, GizmoSubset.PostImageEffects);
+    }
+
+    partial void DrawUIOverlay()
+    {
+        _context.DrawUIOverlay(_camera);
     }
 #endif
 }
