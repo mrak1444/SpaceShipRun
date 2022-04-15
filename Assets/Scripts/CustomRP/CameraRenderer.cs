@@ -7,8 +7,8 @@ partial class CameraRenderer
     private CullingResults _cullingResult;
     private ScriptableRenderContext _context;
     private Camera _camera;
-    private readonly CommandBuffer _commandBuffer = new CommandBuffer { name = bufferName };
-    private const string bufferName = "Camera Render";
+    private CommandBuffer _commandBuffer;   // = new CommandBuffer { name = bufferName };
+    private string bufferName;  // = "Camera Render";
 
     private static readonly List<ShaderTagId> drawingShaderTagIds = new List<ShaderTagId>
     {
@@ -18,6 +18,8 @@ partial class CameraRenderer
     public void Render(ScriptableRenderContext context, Camera camera)
     {
         _camera = camera;
+        bufferName = camera.name;
+        _commandBuffer = new CommandBuffer { name = bufferName };
         _context = context;
 
         if (!Cull(out var parameters))
