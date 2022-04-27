@@ -22,9 +22,9 @@ namespace Main
             var spawnTransform = GetStartPosition();
 
             var player = Instantiate(playerPrefab, spawnTransform.position, spawnTransform.rotation);
-            //player.GetComponent<ShipController>().PlayerName = playerName.text;
             _players.Add(conn.connectionId, player.GetComponent<ShipController>());
             NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
+            NetworkServer.RegisterHandler(100, ReceiveName);
         }
 
         public override void OnClientConnect(NetworkConnection conn)
@@ -33,29 +33,18 @@ namespace Main
             Msggg n = new Msggg();
             n.Name = playerName.text;
             conn.Send(100, n);
-            Debug.Log(1);
         }
-
-        /*public override void OnStartHost()
-        {
-            _textObj.SetActive(false);
-        }*/
 
         private void ReceiveName(NetworkMessage netMsg)
         {
-            ShipController shipController = _players[netMsg.conn.connectionId];
             var nameMessage = netMsg.ReadMessage<Msggg>();
-            shipController.PlayerName = nameMessage.Name;
-            Debug.Log(nameMessage.Name);
+            _players[netMsg.conn.connectionId].PlayerName = nameMessage.Name;
         }
 
         public override void OnStartServer()
         {
             base.OnStartServer();
-
             _textObj.SetActive(false);
-
-            NetworkServer.RegisterHandler(100, ReceiveName);
         }
 
         public override void OnStartClient(NetworkClient client)
@@ -84,5 +73,15 @@ namespace Main
     public class Msggg : MessageBase
     {
         public string Name;
+
+        public override void Deserialize(NetworkReader reader)
+        {
+            Name = reader.ReadString();
+        }
+
+        public override void Serialize(NetworkWriter writer)
+        {
+            writer.Write(Name);
+        }
     }
 }

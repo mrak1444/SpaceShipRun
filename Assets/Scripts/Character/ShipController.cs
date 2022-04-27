@@ -26,7 +26,11 @@ namespace Characters
         public string PlayerName
         {
             get => _playerName;
-            set => _playerName = value;
+            set
+            {
+                gameObject.name = value;
+                _playerName = value;
+            } 
         }
 
         private void OnGUI()
