@@ -81,6 +81,9 @@ Material:
     m_Colors:
     - _AtmoColor: {r: 0.5, g: 0.5, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorFiels: {r: 0.11406189, g: 0.8396226, b: 0.28766748, a: 0}
+    - _ColorMountains: {r: 0.4339623, g: 0.29611593, b: 0.18586686, a: 1}
+    - _ColorOcean: {r: 0, g: 0.4175117, b: 0.9716981, a: 1}
     - _Emission: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

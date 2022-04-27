@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Uranus
-  m_Shader: {fileID: 4800000, guid: ebdc63daa3869594bb8045ce6297c03e, type: 3}
+  m_Shader: {fileID: 4800000, guid: 77d2291a645207044a0883994b6cbbbe, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -65,10 +65,13 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Height: 0.1
+    - _HeightAtmosphere: 0.1
+    - _HeightPlanet: 0
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _Seed: 10
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -78,5 +81,9 @@ Material:
     m_Colors:
     - _AtmoColor: {r: 0.49411768, g: 0.65882355, b: 0.69803923, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorFiels: {r: 1, g: 0, b: 1, a: 0}
+    - _ColorMountains: {r: 0, g: 0, b: 1, a: 1}
+    - _ColorOcean: {r: 1, g: 1, b: 1, a: 1}
+    - _Emission: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

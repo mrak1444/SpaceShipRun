@@ -1,10 +1,8 @@
-Shader "Custom/PlanetAndAtmosphere"
+Shader "Custom/PlanetAndAtmosphere1"
 {
     Properties
     {
-        _ColorOcean("Color", Color) = (1,1,1,1) //
-        _ColorFiels("Color", Color) = (1,0,1,0)
-        _ColorMountains("Color", Color) = (0,0,1,1)
+        _Color("Color", Color) = (1,1,1,1) //
         _MainTex("Albedo (RGB)", 2D) = "white" {} //
         _AtmoColor("Atmosphere Color", Color) = (0.5, 0.5, 1.0, 1) //
         _HeightAtmosphere("Size", Float) = 0.1 //
@@ -26,9 +24,7 @@ Shader "Custom/PlanetAndAtmosphere"
                 #pragma target 3.0
 
                 sampler2D _MainTex;
-                fixed4 _ColorOcean;
-                fixed4 _ColorFiels;
-                fixed4 _ColorMountains;
+                fixed4 _Color;
                 float4 _Emission;
                 float _HeightPlanet;
                 float _Seed;
@@ -70,26 +66,29 @@ Shader "Custom/PlanetAndAtmosphere"
 
                 void surf(Input IN, inout SurfaceOutput o)
                 {
-                    fixed4 color2;
-                    
+                    fixed4 color = tex2D(_MainTex, IN.uv_MainTex) * _Color;
                     float height = IN.color.r;
 
                     if (height < 0.45)
                     {
-                        color2 = _ColorOcean;
+                        color.x = 0.10;
+                        color.y = 0.30;
+                        color.z = 0.50;
                     }
                     else if (height < 0.75)
                     {
-                        color2 = _ColorFiels;
+                        color.x = 0.10;
+                        color.y = 0.60;
+                        color.z = 0.30;
                     }
                     else
                     {
-                        color2 = _ColorMountains;
+                        color.x = 0.60;
+                        color.y = 0.30;
+                        color.z = 0.30;
                     }
 
-                    fixed4 color = tex2D(_MainTex, IN.uv_MainTex) * color2;
-
-                    o.Albedo = color.rgba;
+                    o.Albedo = color.rgb;
                     o.Emission = _Emission.xyz;
                     o.Alpha = color.a;
                 }
@@ -109,6 +108,7 @@ Shader "Custom/PlanetAndAtmosphere"
                     #include "UnityCG.cginc"
 
                     sampler2D _MainTex;
+                    float4 _Color;
                     float4 _AtmoColor;
                     float _HeightAtmosphere;
                     float _Falloff;
