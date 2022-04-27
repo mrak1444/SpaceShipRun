@@ -21,6 +21,8 @@ namespace Characters
         [SyncEvent]
         public event Action OnSomethingHappend;
 
+        public Action<ShipController> ActionTrigger { get; set; }
+
         protected override float speed => _shipSpeed;
 
         public string PlayerName
@@ -32,6 +34,8 @@ namespace Characters
                 _playerName = value;
             } 
         }
+
+        
 
         private void OnGUI()
         {
@@ -150,7 +154,7 @@ namespace Characters
         {
             if(hasAuthority)
             {
-
+                ActionTrigger?.Invoke(this);
             }
             else
             {

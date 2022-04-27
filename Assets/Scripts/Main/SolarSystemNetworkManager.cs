@@ -14,17 +14,24 @@ namespace Main
         [SerializeField] private GameObject _textObj;
 
         private Dictionary<int, ShipController> _players = new Dictionary<int, ShipController>();
+        private Transform _spawnTransform;
 
-        
+
 
         public override void OnServerAddPlayer(NetworkConnection conn, short playerControllerId)
         {
-            var spawnTransform = GetStartPosition();
+            _spawnTransform = GetStartPosition();
 
-            var player = Instantiate(playerPrefab, spawnTransform.position, spawnTransform.rotation);
+            var player = Instantiate(playerPrefab, _spawnTransform.position, _spawnTransform.rotation);
             _players.Add(conn.connectionId, player.GetComponent<ShipController>());
+            _players[conn.connectionId].ActionTrigger += ShipTrigger;
             NetworkServer.AddPlayerForConnection(conn, player, playerControllerId);
             NetworkServer.RegisterHandler(100, ReceiveName);
+        }
+
+        private void ShipTrigger(ShipController shipController)
+        {
+            shipController.transform.position = _spawnTransform.position;
         }
 
         public override void OnClientConnect(NetworkConnection conn)
